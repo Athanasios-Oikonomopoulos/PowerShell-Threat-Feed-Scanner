@@ -9,7 +9,7 @@ Built for blue teamers, SOC analysts, and cybersecurity students looking to prac
 ## Features
 
 - Fetches live threat intelligence IPs from abuse.ch (URLhaus)
-- Lists active outbound TCP connections (`netstat`)
+- Lists active outbound TCP connections (`Get-NetTCPConnection`)
 - Detects and flags matches with known malicious IPs
 - Saves suspicious matches to a report file on the desktop
 - 100% PowerShell, no external dependencies
@@ -18,19 +18,23 @@ Built for blue teamers, SOC analysts, and cybersecurity students looking to prac
 
 ## How to Test It
 
-To simulate a match with a known malicious IP:
+First, **open a PowerShell terminal with administrator privileges**.
+
+Then use it to simulate a match with a known malicious IP from the URLhaus feed by running the following **PowerShell one-liner**:
 
 ```powershell
-Test-NetConnection 45.155.205.102 -Port 80
+$r = New-Object Net.Sockets.TcpClient; $r.Connect("200.59.83.63", 50623); Start-Sleep 10; $r.Close()
 ```
 
-Then run the script again:
+**This command will give you 10 seconds to simulate a connection** to a malicious IP and port of your choice (e.g. one you found in the URLhaus feed), long enough for the script to detect it in a scan. The connection is then **safely closed automatically**.
+
+While the connection is still active, **open a second PowerShell terminal (also as administrator)** and run your script:
 
 ```powershell
 .\ThreatFeedScanner.ps1
 ```
 
-⚠️ **Do not download any content** from these IPs. The test is only meant to generate a detectable connection in `netstat` for demonstration purposes.
+⚠️ **Do not download or interact with content** from these IPs. This test only opens a temporary TCP connection (using `TcpClient`) for detection by the script, no data is transmitted or received.
 
 ---
 
@@ -78,7 +82,7 @@ PowerShell-Threat-Feed-Scanner/
 
 ### 🔄 Testing a Malicious Connection
 
-> Using `Test-NetConnection` to simulate activity toward a known malicious IP.
+>Opening a raw TCP connection to a known bad IP for detection testing.
 
 ![Test Connection](screenshots/Test_Connection.png)
 
@@ -111,7 +115,6 @@ This project is licensed under the **MIT License**, open-source and free to use,
 **Athanasios Oikonomopoulos**  
 🔗 [LinkedIn](https://www.linkedin.com/in/athanasios-oikonomopoulos/)  
 🔗 [TryHackMe](https://tryhackme.com/p/B4ckD00rR4t)  
-🔗 [GitHub](https://github.com/Athanasios-Oikonomopoulos)
 
 ---
 
