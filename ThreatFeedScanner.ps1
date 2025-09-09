@@ -1,19 +1,3 @@
-<#
-.SYNOPSIS
-Fetches known malicious IPs from a live threat intelligence feed and compares them to the system's active TCP connections.
-
-.DESCRIPTION
-This PowerShell script retrieves a threat feed from URLhaus (abuse.ch), extracts all IP addresses using regex, and compares them to currently active TCP connections on the machine using netstat. If any matches are found, they are saved to a timestamped report on the user's Desktop.
-
-.SAFE TO RUN
-- No data is sent to malicious hosts
-- No payloads are downloaded
-- This is a passive detection tool only
-
-.AUTHOR
-Athanasios Oikonomopoulos
-#>
-
 # ---------- Config ----------
 $OutputPath       = Join-Path $env:USERPROFILE "Desktop\ThreatIntelMatches.txt"
 $ObserveSeconds   = 8        # sampling window; raise to 12 if needed
@@ -165,3 +149,4 @@ if ($matches.Count -gt 0) {
 } else {
   Ok "No suspicious connections found."
 }
+
