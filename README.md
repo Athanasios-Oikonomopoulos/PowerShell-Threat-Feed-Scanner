@@ -104,7 +104,7 @@ It works the same way as `ThreatFeedScanner.ps1` but adds **IP geolocation enric
 
 ---
 
-### 🌍 Geo-Enhanced Version Screenshots
+## 🌍 Geo-Enhanced Version Screenshots
 
 > The following images show the `ThreatFeedScanner-Geo.ps1` output and log examples (geolocation enrichment via ip-api.com).
 
