@@ -12,7 +12,7 @@ Built for blue teamers, SOC analysts, and cybersecurity students looking to prac
 - Lists active outbound TCP connections (`Get-NetTCPConnection`)
 - Detects and flags matches with known malicious IPs
 - Saves suspicious matches to a report file on the desktop
-- 100% PowerShell, no external dependencies
+- **NEW:** Optional geolocation enrichment (ThreatFeedScanner-Geo.ps1) using ip-api.com
 
 ---
 
@@ -53,24 +53,24 @@ cd PowerShell-Threat-Feed-Scanner
   ```
 
 ---
+## 🌍 New Version: ThreatFeedScanner-Geo.ps1 (with Geolocation Feature)
 
-## 📁 File Structure
+In addition to the original scanner, a new script `ThreatFeedScanner-Geo.ps1` is available.  
+It works the same way as `ThreatFeedScanner.ps1` but adds **IP geolocation enrichment** using the free [ip-api.com](http://ip-api.com) service.
 
-```
-PowerShell-Threat-Feed-Scanner/
-├── ThreatFeedScanner.ps1         # Main script
-├── README.md                     # This documentation
-├── LICENSE                       # MIT License
-└── screenshots/                  # Demo images for README
-    ├── Clean_Example.png
-    ├── Match_Example.png
-    ├── Test_Connection.png
-    └── Threat_Intel_Matches.png
-```
+### How it works
+- Detects active connections against the URLhaus feed (same as original).
+- For each matched IP, queries ip-api.com and retrieves:
+  - Country, Region, City
+  - ISP and Organization
+  - Latitude & Longitude
+- Saves results to a timestamped log file on the Desktop, with geolocation metadata included.
+
+⚠️ Note: ip-api.com free tier allows ~45 requests per minute. If your scan finds many matches, results may be rate-limited. Consider adding a short Start-Sleep between lookups or using a paid/HTTPS provider for higher limits.
 
 ---
 
-## 📸 Screenshots
+## 📸 Screenshots (Original version without the geolocation feature)
 
 ### ✅ Clean Result
 
@@ -101,6 +101,34 @@ PowerShell-Threat-Feed-Scanner/
 > Suspicious IPs are written to a timestamped report on the Desktop.
 
 ![Threat Intel Matches](screenshots/Threat_Intel_Matches.png)
+
+---
+
+### 🌍 Geo-Enhanced Version Screenshots
+
+> The following images show the `ThreatFeedScanner-Geo.ps1` output and log examples (geolocation enrichment via ip-api.com).
+
+#### ✅ Clean Result (with Geolocation)  
+>Example of no matches.
+
+![Geo Clean Example](screenshots/Geo_Clean_Example.png)
+
+---
+
+#### ❌ Malicious Connection Found (with Geolocation)  
+>Shows malicious IP detection + enrichment with ISP, Country, and City.
+
+![Geo Match Example](screenshots/Geo_Match_Example.png)
+
+---
+
+#### 📝 Threat Intel Log File (Geo Version)  
+>Suspicious IPs written to a report, including geolocation metadata.
+
+![Geo Log File](screenshots/Geo_LogFile.png)
+
+
+
 
 ---
 
