@@ -8,11 +8,11 @@ Built for blue teamers, SOC analysts, and cybersecurity students looking to prac
 
 ## Features
 
-- Fetches live threat intelligence IPs from abuse.ch (URLhaus)
-- Lists active outbound TCP connections (`Get-NetTCPConnection`)
-- Detects and flags matches with known malicious IPs
-- Saves suspicious matches to a report file on the desktop
-- **NEW:** Optional geolocation enrichment (ThreatFeedScanner-Geo.ps1) using ip-api.com
+- Fetches live threat intelligence IPs from abuse.ch (URLhaus).
+- Lists active outbound TCP connections (`Get-NetTCPConnection`).
+- Detects and flags matches with known malicious IPs.
+- Saves suspicious matches to a report file on the desktop.
+- **NEW:** Optional geolocation enrichment (ThreatFeedScanner-Geo.ps1) using ip-api.com.
 
 ---
 
